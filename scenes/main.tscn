@@ -1,0 +1,135 @@
+[gd_scene load_steps=13 format=4 uid="uid://bvosrqmwmmbs1"]
+
+[ext_resource type="Texture2D" uid="uid://cih6h83kcjeav" path="res://assets/kenney_space-shooter-remastered/Backgrounds/darkPurple.png" id="1_0wfyh"]
+[ext_resource type="Script" uid="uid://2god63eqp5h5" path="res://scripts/bg.gd" id="1_sugp2"]
+[ext_resource type="Texture2D" uid="uid://c7x3k835hmv2" path="res://assets/kenney_space-shooter-remastered/Backgrounds/blue.png" id="2_sugp2"]
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jyhfs"]
+texture = ExtResource("1_0wfyh")
+texture_region_size = Vector2i(256, 256)
+0:0/0 = 0
+
+[sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_tbgi4"]
+texture = ExtResource("2_sugp2")
+texture_region_size = Vector2i(256, 256)
+0:0/0 = 0
+
+[sub_resource type="TileSet" id="TileSet_tefeu"]
+tile_size = Vector2i(256, 256)
+sources/0 = SubResource("TileSetAtlasSource_jyhfs")
+sources/1 = SubResource("TileSetAtlasSource_tbgi4")
+
+[sub_resource type="Animation" id="Animation_tipki"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("space1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-26, 0)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("space2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Vector2(-26, -1280)]
+}
+
+[sub_resource type="Animation" id="Animation_o6xl0"]
+resource_name = "loop"
+length = 2.0
+loop_mode = 1
+step = 0.5
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("space1:position")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-26, 0), Vector2(-26, 1280)]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("space2:position")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 2),
+"transitions": PackedFloat32Array(1, 1),
+"update": 0,
+"values": [Vector2(-26, -1280), Vector2(-26, 0)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_85g3d"]
+_data = {
+&"RESET": SubResource("Animation_tipki"),
+&"loop": SubResource("Animation_o6xl0")
+}
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_0wfyh"]
+size = Vector2(20, 1289)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_sugp2"]
+size = Vector2(20, 1289)
+
+[sub_resource type="RectangleShape2D" id="RectangleShape2D_jyhfs"]
+size = Vector2(764, 20.5)
+
+[node name="main" type="Node2D"]
+
+[node name="bg" type="Node2D" parent="."]
+script = ExtResource("1_sugp2")
+
+[node name="space1" type="Node2D" parent="bg"]
+position = Vector2(-26, 0)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="bg/space1"]
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAACAAEAAAAAAAAAAAABAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAABAAIAAAAAAAAAAAACAAIAAAAAAAAAAAACAAMAAAAAAAAAAAABAAMAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAABAAQAAAAAAAAAAAACAAQAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_tefeu")
+
+[node name="space2" type="Node2D" parent="bg"]
+position = Vector2(-26, -1280)
+
+[node name="TileMapLayer" type="TileMapLayer" parent="bg/space2"]
+tile_map_data = PackedByteArray("AAAAAAAAAAAAAAAAAAABAAAAAAAAAAAAAAACAAAAAAAAAAAAAAACAAEAAAAAAAAAAAABAAEAAAAAAAAAAAAAAAEAAAAAAAAAAAAAAAIAAAAAAAAAAAACAAIAAAAAAAAAAAACAAMAAAAAAAAAAAABAAMAAAAAAAAAAAAAAAMAAAAAAAAAAAAAAAQAAAAAAAAAAAABAAQAAAAAAAAAAAACAAQAAAAAAAAAAAABAAIAAAAAAAAAAAA=")
+tile_set = SubResource("TileSet_tefeu")
+
+[node name="AnimationPlayer" type="AnimationPlayer" parent="bg"]
+libraries = {
+&"": SubResource("AnimationLibrary_85g3d")
+}
+autoplay = "loop"
+
+[node name="StaticBody2D" type="StaticBody2D" parent="bg"]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="bg/StaticBody2D"]
+position = Vector2(0, 643.5)
+shape = SubResource("RectangleShape2D_0wfyh")
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="bg/StaticBody2D"]
+position = Vector2(720, 643.5)
+shape = SubResource("RectangleShape2D_sugp2")
+
+[node name="CollisionShape2D3" type="CollisionShape2D" parent="bg/StaticBody2D"]
+position = Vector2(357, 9.75)
+shape = SubResource("RectangleShape2D_jyhfs")
+
+[node name="CollisionShape2D4" type="CollisionShape2D" parent="bg/StaticBody2D"]
+position = Vector2(357, 1289.75)
+shape = SubResource("RectangleShape2D_jyhfs")
