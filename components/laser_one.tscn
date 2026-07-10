@@ -1,0 +1,32 @@
+[gd_scene load_steps=4 format=3 uid="uid://bvbbwj3hqr7c8"]
+
+[ext_resource type="Script" uid="uid://yvr2ufywrfws" path="res://scripts/laser.gd" id="1_kihlc"]
+[ext_resource type="Texture2D" uid="uid://b3ucjtr4xgh17" path="res://assets/kenney_space-shooter-remastered/PNG/Lasers/laserBlue05.png" id="2_0i0o5"]
+
+[sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xvth5"]
+radius = 4.0
+height = 36.0
+
+[node name="laserOne" type="CharacterBody2D"]
+script = ExtResource("1_kihlc")
+
+[node name="Sprite2D" type="Sprite2D" parent="."]
+texture_filter = 1
+texture = ExtResource("2_0i0o5")
+
+[node name="Area2D" type="Area2D" parent="." groups=["laser"]]
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CapsuleShape2D_xvth5")
+
+[node name="rPoint" type="Node2D" parent="."]
+position = Vector2(31, 0)
+rotation = 0.5235988
+
+[node name="lPoint" type="Node2D" parent="."]
+position = Vector2(-31, 0)
+rotation = -0.5235988
+
+[node name="Timer" type="Timer" parent="."]
+wait_time = 3.0
+autostart = true
