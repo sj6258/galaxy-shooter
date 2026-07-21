@@ -1,0 +1,275 @@
+[gd_scene load_steps=24 format=3 uid="uid://bd4mon5vec5xa"]
+
+[ext_resource type="Texture2D" uid="uid://bqgxvt0dqltob" path="res://assets/kenney_space-shooter-remastered/PNG/playerShip2_blue.png" id="1_pir3r"]
+[ext_resource type="Texture2D" uid="uid://scpstxtjifhm" path="res://assets/kenney_space-shooter-remastered/PNG/playerShip1_blue.png" id="2_mm1xv"]
+[ext_resource type="Texture2D" uid="uid://brj0kmntet12d" path="res://assets/kenney_space-shooter-remastered/PNG/playerShip3_blue.png" id="3_qe8hj"]
+[ext_resource type="Texture2D" uid="uid://b48vp86gw4ouj" path="res://assets/kenney_space-shooter-remastered/PNG/Effects/star3.png" id="4_eju5v"]
+[ext_resource type="Texture2D" uid="uid://bmtbohwgodpix" path="res://assets/kenney_space-shooter-remastered/PNG/Effects/star2.png" id="5_7ta67"]
+[ext_resource type="Texture2D" uid="uid://cajd5486m1nq6" path="res://assets/kenney_space-shooter-remastered/PNG/Effects/star1.png" id="6_jhk7o"]
+[ext_resource type="AudioStream" uid="uid://ecp4pey656k6" path="res://assets/kenney_space-shooter-remastered/Bonus/sfx_laser2.ogg" id="7_1wqow"]
+[ext_resource type="AudioStream" uid="uid://b05vrlk72af6m" path="res://assets/kenney_space-shooter-remastered/Bonus/sfx_shieldDown.ogg" id="8_6qb5m"]
+[ext_resource type="AudioStream" uid="uid://cghghmk1pwemj" path="res://assets/kenney_space-shooter-remastered/Bonus/sfx_lose.ogg" id="9_kn8w6"]
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_eaetu"]
+radius = 31.0
+
+[sub_resource type="CircleShape2D" id="CircleShape2D_1dyya"]
+radius = 36.0
+
+[sub_resource type="Animation" id="Animation_t8b0b"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("boom/Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+
+[sub_resource type="Animation" id="Animation_ntxa4"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("boom/Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("boom/Sprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 1,
+"values": [ExtResource("4_eju5v")]
+}
+
+[sub_resource type="Animation" id="Animation_6esqw"]
+resource_name = "boom"
+length = 0.3
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("boom/Sprite2D:visible")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.3),
+"transitions": PackedFloat32Array(1, 1),
+"update": 1,
+"values": [true, false]
+}
+tracks/1/type = "value"
+tracks/1/imported = false
+tracks/1/enabled = true
+tracks/1/path = NodePath("boom/Sprite2D:texture")
+tracks/1/interp = 1
+tracks/1/loop_wrap = true
+tracks/1/keys = {
+"times": PackedFloat32Array(0, 0.1, 0.2),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 1,
+"values": [ExtResource("4_eju5v"), ExtResource("5_7ta67"), ExtResource("6_jhk7o")]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_hoi4b"]
+_data = {
+&"RESET": SubResource("Animation_ntxa4"),
+&"boom": SubResource("Animation_6esqw"),
+&"idle": SubResource("Animation_t8b0b")
+}
+
+[sub_resource type="Animation" id="Animation_8pb0k"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ships:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_pir3r"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ships:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_mm1xv"]
+resource_name = "power"
+length = 0.4
+loop_mode = 1
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ships:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4),
+"transitions": PackedFloat32Array(1, 1, 1),
+"update": 0,
+"values": [Color(1, 1, 0, 1), Color(1, 1, 1, 1), Color(1, 1, 0, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_p3qei"]
+_data = {
+&"RESET": SubResource("Animation_pir3r"),
+&"idle": SubResource("Animation_8pb0k"),
+&"power": SubResource("Animation_mm1xv")
+}
+
+[sub_resource type="Animation" id="Animation_alqpi"]
+resource_name = "idle"
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ships:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_qe8hj"]
+length = 0.001
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ships:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0),
+"transitions": PackedFloat32Array(1),
+"update": 0,
+"values": [Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="Animation" id="Animation_eju5v"]
+resource_name = "hurt"
+length = 0.6
+tracks/0/type = "value"
+tracks/0/imported = false
+tracks/0/enabled = true
+tracks/0/path = NodePath("ships:modulate")
+tracks/0/interp = 1
+tracks/0/loop_wrap = true
+tracks/0/keys = {
+"times": PackedFloat32Array(0, 0.2, 0.4, 0.6),
+"transitions": PackedFloat32Array(1, 1, 1, 1),
+"update": 0,
+"values": [Color(1, 0, 0, 1), Color(1, 1, 1, 1), Color(1, 0, 0, 1), Color(1, 1, 1, 1)]
+}
+
+[sub_resource type="AnimationLibrary" id="AnimationLibrary_me566"]
+_data = {
+&"RESET": SubResource("Animation_qe8hj"),
+&"hurt": SubResource("Animation_eju5v"),
+&"idle": SubResource("Animation_alqpi")
+}
+
+[node name="player" type="CharacterBody2D"]
+
+[node name="ships" type="Node2D" parent="."]
+
+[node name="ship1" type="Sprite2D" parent="ships"]
+texture_filter = 1
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("1_pir3r")
+
+[node name="ship2" type="Sprite2D" parent="ships"]
+visible = false
+texture_filter = 1
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("2_mm1xv")
+
+[node name="ship3" type="Sprite2D" parent="ships"]
+visible = false
+texture_filter = 1
+scale = Vector2(0.9, 0.9)
+texture = ExtResource("3_qe8hj")
+
+[node name="boom" type="Node2D" parent="."]
+
+[node name="Sprite2D" type="Sprite2D" parent="boom"]
+visible = false
+modulate = Color(1, 0.4745098, 0, 1)
+texture_filter = 1
+scale = Vector2(4, 4)
+texture = ExtResource("4_eju5v")
+
+[node name="CollisionShape2D" type="CollisionShape2D" parent="."]
+shape = SubResource("CircleShape2D_eaetu")
+
+[node name="Area2D" type="Area2D" parent="." groups=["player"]]
+
+[node name="CollisionShape2D2" type="CollisionShape2D" parent="Area2D"]
+shape = SubResource("CircleShape2D_1dyya")
+debug_color = Color(0.99579424, 0, 0.20708433, 0.41960785)
+
+[node name="point" type="Node2D" parent="."]
+position = Vector2(0, -48)
+
+[node name="TimerToShoot" type="Timer" parent="."]
+one_shot = true
+autostart = true
+
+[node name="TimerPowerUp" type="Timer" parent="."]
+wait_time = 5.0
+one_shot = true
+
+[node name="AnimationPlayerBoom" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_hoi4b")
+}
+
+[node name="AnimationPlayerPowerUp" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_p3qei")
+}
+
+[node name="AnimationPlayerHurt" type="AnimationPlayer" parent="."]
+libraries = {
+&"": SubResource("AnimationLibrary_me566")
+}
+
+[node name="AudioStreamPlayer2DLaser" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("7_1wqow")
+
+[node name="AudioStreamPlayer2DHit" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("8_6qb5m")
+
+[node name="AudioStreamPlayer2DGameOver" type="AudioStreamPlayer2D" parent="."]
+stream = ExtResource("9_kn8w6")

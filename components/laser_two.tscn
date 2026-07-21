@@ -1,7 +1,8 @@
-[gd_scene load_steps=4 format=3 uid="uid://dmnwr1w5x505t"]
+[gd_scene load_steps=5 format=3 uid="uid://dmnwr1w5x505t"]
 
 [ext_resource type="Script" uid="uid://yvr2ufywrfws" path="res://scripts/laser.gd" id="1_5dgxe"]
 [ext_resource type="Texture2D" uid="uid://b3ucjtr4xgh17" path="res://assets/kenney_space-shooter-remastered/PNG/Lasers/laserBlue05.png" id="2_asqem"]
+[ext_resource type="PackedScene" uid="uid://bvbbwj3hqr7c8" path="res://components/laser_one.tscn" id="2_ocflt"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xvth5"]
 radius = 4.0
@@ -9,6 +10,8 @@ height = 36.0
 
 [node name="laserTwo" type="CharacterBody2D"]
 script = ExtResource("1_5dgxe")
+laser_type = 2
+laser = ExtResource("2_ocflt")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -30,3 +33,5 @@ rotation = -0.5235988
 [node name="Timer" type="Timer" parent="."]
 wait_time = 3.0
 autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]

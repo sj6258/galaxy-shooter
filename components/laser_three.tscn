@@ -1,6 +1,7 @@
-[gd_scene load_steps=4 format=3 uid="uid://pwtabq58xdcx"]
+[gd_scene load_steps=5 format=3 uid="uid://pwtabq58xdcx"]
 
 [ext_resource type="Script" uid="uid://yvr2ufywrfws" path="res://scripts/laser.gd" id="1_i2fx6"]
+[ext_resource type="PackedScene" uid="uid://bvbbwj3hqr7c8" path="res://components/laser_one.tscn" id="2_gjvmt"]
 [ext_resource type="Texture2D" uid="uid://b3ucjtr4xgh17" path="res://assets/kenney_space-shooter-remastered/PNG/Lasers/laserBlue05.png" id="2_yppnr"]
 
 [sub_resource type="CapsuleShape2D" id="CapsuleShape2D_xvth5"]
@@ -9,6 +10,8 @@ height = 1658.0
 
 [node name="laserThree" type="CharacterBody2D"]
 script = ExtResource("1_i2fx6")
+laser_type = 3
+laser = ExtResource("2_gjvmt")
 
 [node name="Sprite2D" type="Sprite2D" parent="."]
 texture_filter = 1
@@ -30,7 +33,6 @@ region_rect = Rect2(0.5, 6.3, 8, 25.735)
 [node name="CollisionShape2D" type="CollisionShape2D" parent="Area2D"]
 position = Vector2(0, -810)
 shape = SubResource("CapsuleShape2D_xvth5")
-debug_color = Color(0.9995683, 0, 0.12332984, 0.41960785)
 
 [node name="rPoint" type="Node2D" parent="."]
 position = Vector2(31, 0)
@@ -41,5 +43,7 @@ position = Vector2(-31, 0)
 rotation = -0.5235988
 
 [node name="Timer" type="Timer" parent="."]
-wait_time = 3.0
+wait_time = 0.9
 autostart = true
+
+[connection signal="timeout" from="Timer" to="." method="_on_timer_timeout"]
