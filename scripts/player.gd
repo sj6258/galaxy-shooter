@@ -1,7 +1,7 @@
 extends CharacterBody2D
 
 @export var speed = 800.0
-@export var stopping_distance = 0.0
+@export var stopping_distance = 10.0
 @export var health = 3
 
 var destroyed = false
@@ -22,12 +22,15 @@ func _process(delta: float) -> void:
 	if global.game_on == true and global.game_over == false:
 		turn_on_ship_body()
 		visible = true
-		if Input.is_action_just_pressed("left_click"):
+		
+		if Input.is_action_pressed("left_click"):
+			
 			var mouse_position = get_global_mouse_position()
 			var distance_to_mouse = global_position.distance_to(mouse_position)
 			if distance_to_mouse > stopping_distance:
 				var direction = (mouse_position - global_position).normalized()
 				velocity = direction * speed
+				
 			else:
 				velocity = Vector2.ZERO
 			move_and_slide()
@@ -76,3 +79,18 @@ func _on_area_2d_area_entered(area: Area2D) -> void:
 		health -= 1
 		if health >= 1:
 			$AudioStreamPlayer2DHit.play()
+		_on_timer_power_up_timeout()
+	if area.is_in_group("powerUp"):
+		area.get_parent().queue_free()
+		power_up_boost = 0.4
+		$AnimationPlayerPowerUp.play("power")
+		$TimerPowerUp.start()
+
+
+func _on_timer_power_up_timeout() -> void:
+	power_up_boost = 0
+	$AnimationPlayerPowerUp.play("idle")
+
+
+func _on_timer_to_shoot_timeout() -> void:
+	can_shoot = true

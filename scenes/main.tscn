@@ -15,6 +15,7 @@
 [ext_resource type="PackedScene" uid="uid://bvbbwj3hqr7c8" path="res://components/laser_one.tscn" id="10_jkv2x"]
 [ext_resource type="PackedScene" uid="uid://dmnwr1w5x505t" path="res://components/laser_two.tscn" id="12_jbj1t"]
 [ext_resource type="PackedScene" uid="uid://pwtabq58xdcx" path="res://components/laser_three.tscn" id="14_muem4"]
+[ext_resource type="PackedScene" uid="uid://bd4mon5vec5xa" path="res://components/player.tscn" id="16_jbj1t"]
 
 [sub_resource type="TileSetAtlasSource" id="TileSetAtlasSource_jyhfs"]
 texture = ExtResource("1_0wfyh")
@@ -116,10 +117,6 @@ font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="StyleBoxFlat" id="StyleBoxFlat_tefeu"]
 bg_color = Color(0.6, 0.6, 0.6, 0)
-
-[sub_resource type="LabelSettings" id="LabelSettings_choun"]
-font_size = 55
-font_color = Color(0, 0, 0, 1)
 
 [sub_resource type="LabelSettings" id="LabelSettings_ya4ey"]
 font = ExtResource("4_tbgi4")
@@ -396,65 +393,6 @@ offset_bottom = 89.0
 theme_type_variation = &"FlatButton"
 theme_override_styles/focus = SubResource("StyleBoxFlat_tefeu")
 
-[node name="ingamescreen" type="Node2D" parent="ui/CanvasLayer"]
-visible = false
-
-[node name="ButtonMute" type="Node2D" parent="ui/CanvasLayer/ingamescreen"]
-position = Vector2(6, 0)
-
-[node name="NinePatchRect" type="NinePatchRect" parent="ui/CanvasLayer/ingamescreen/ButtonMute"]
-modulate = Color(1, 1, 1, 0.33333334)
-offset_left = -12.0
-offset_right = 48.0
-offset_bottom = 64.0
-texture = ExtResource("10_choun")
-patch_margin_left = 5
-patch_margin_top = 5
-patch_margin_right = 5
-patch_margin_bottom = 5
-
-[node name="LabelOn" type="Label" parent="ui/CanvasLayer/ingamescreen/ButtonMute"]
-modulate = Color(1, 1, 1, 0.39607844)
-texture_filter = 1
-offset_left = -12.0
-offset_top = -9.0
-offset_right = 48.0
-offset_bottom = 75.0
-text = "X"
-label_settings = SubResource("LabelSettings_choun")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="LabelOff" type="Label" parent="ui/CanvasLayer/ingamescreen/ButtonMute"]
-visible = false
-modulate = Color(1, 1, 1, 0.39607844)
-texture_filter = 1
-offset_left = -12.0
-offset_top = -9.0
-offset_right = 48.0
-offset_bottom = 75.0
-text = "O"
-label_settings = SubResource("LabelSettings_choun")
-horizontal_alignment = 1
-vertical_alignment = 1
-
-[node name="ButtonMute" type="Button" parent="ui/CanvasLayer/ingamescreen/ButtonMute"]
-offset_left = -13.0
-offset_right = 48.0
-offset_bottom = 64.0
-theme_type_variation = &"FlatButton"
-theme_override_styles/focus = SubResource("StyleBoxFlat_tefeu")
-
-[node name="LabelScore" type="Label" parent="ui/CanvasLayer/ingamescreen"]
-texture_filter = 1
-offset_right = 720.0
-offset_bottom = 81.0
-text = "0"
-label_settings = SubResource("LabelSettings_o6xl0")
-horizontal_alignment = 1
-vertical_alignment = 1
-autowrap_mode = 2
-
 [node name="gameoverscreen" type="Node2D" parent="ui/CanvasLayer"]
 visible = false
 
@@ -507,6 +445,10 @@ offset_bottom = 103.0
 theme_type_variation = &"FlatButton"
 theme_override_styles/focus = SubResource("StyleBoxFlat_tefeu")
 
+[node name="player" parent="." instance=ExtResource("16_jbj1t")]
+position = Vector2(356, 1085)
+stopping_distance = 15.0
+
 [connection signal="pressed" from="ui/CanvasLayer/startscreen/ButtonPlay/ButtonPlay" to="ui" method="_on_button_play_pressed"]
 [connection signal="timeout" from="ui/CanvasLayer/choosescreen/ships/shipOne/Timer" to="ui/CanvasLayer/choosescreen/ships/shipOne" method="_on_timer_timeout"]
 [connection signal="timeout" from="ui/CanvasLayer/choosescreen/ships/shipTwo/Timer" to="ui/CanvasLayer/choosescreen/ships/shipTwo" method="_on_timer_timeout"]
@@ -515,5 +457,4 @@ theme_override_styles/focus = SubResource("StyleBoxFlat_tefeu")
 [connection signal="pressed" from="ui/CanvasLayer/choosescreen/ButtonShipOne/ButtonShipOne" to="ui" method="_on_button_ship_one_pressed"]
 [connection signal="pressed" from="ui/CanvasLayer/choosescreen/ButtonShipTwo/ButtonShipTwo" to="ui" method="_on_button_ship_two_pressed"]
 [connection signal="pressed" from="ui/CanvasLayer/choosescreen/ButtonShipThree/ButtonShipThree" to="ui" method="_on_button_ship_three_pressed"]
-[connection signal="pressed" from="ui/CanvasLayer/ingamescreen/ButtonMute/ButtonMute" to="ui" method="_on_button_mute_pressed"]
 [connection signal="pressed" from="ui/CanvasLayer/gameoverscreen/ButtonMenu/ButtonMenu" to="bg" method="_on_button_menu_pressed"]
